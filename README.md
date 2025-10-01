@@ -1,4 +1,4 @@
-# Borderlands 4 SHiFT Code Monitor - Cloudflare Worker（日本語）
+# Borderlands 4 SHiFT Code Monitor
 
 このプロジェクトは Borderlands 4 の SHiFT コードを監視するワーカーです。Cloudflare Workers で動作させることも、GitHub Actions のスケジュール実行で動かすこともできます。どちらの経路でも同一の TypeScript ソースと環境変数設定を共有します。
 
