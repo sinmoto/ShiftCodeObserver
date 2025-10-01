@@ -1,0 +1,29 @@
+   name: Fetch Borderlands SHiFT Codes
+
+   on:
+     schedule:
+       - cron: "0 * * * *" # 毎時
+     workflow_dispatch: {}
+
+   jobs:
+     fetch:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-node@v4
+           with:
+             node-version: 20
+             cache: npm
+         - run: npm ci
+         - name: Fetch codes
+           run: npm run fetch-codes -- --json > shift-codes.json
+           env:
+             MODE: DRY_RUN
+             SOURCE_OFFICIAL_SITE_URL: ${{ secrets.SOURCE_OFFICIAL_SITE_URL }}
+             SOURCE_OFFICIAL_X_URL: ${{ secrets.SOURCE_OFFICIAL_X_URL }}
+             SOURCE_MEDIA_TRUSTED_URL: ${{ secrets.SOURCE_MEDIA_TRUSTED_URL }}
+             SOURCE_COMMUNITY_AUX_URL: ${{ secrets.SOURCE_COMMUNITY_AUX_URL }}
+         - uses: actions/upload-artifact@v4
+           with:
+             name: borderlands-shift-codes
+             path: shift-codes.json
